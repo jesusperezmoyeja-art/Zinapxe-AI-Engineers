@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Diplomado IA Generativa</title>
+    <link rel="stylesheet" href="{% static 'css/styles1.css' %}">
+    <style>
+        .welcome-overlay { opacity: 0; transition: opacity 0.5s ease; }
+        .loaded .welcome-overlay { opacity: 1; }
+        
+        /* Estilos extra para los inputs del login para que combinen con tu diseño */
+        .login-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+    </style>
+</head>
+<body class="bg-tech">
+    <div class="welcome-overlay">
+        <div class="welcome-card">
+            <div class="logos-welcome">
+                <img src="{% static 'img/universidad-de-carabobo-logo-png_seeklogo-535325.png' %}" alt="UC Logo">
+                <img src="{% static 'img/Zynaoxe.png' %}" alt="Zynapxe Logo">
+                <img src="{% static 'img/cenforpro.png' %}" alt="Cenforpro Logo">
+            </div>
+            <h1>Pago de Mensualidades</h1>
+            <h2>Diplomado en IA Generativa</h2>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <p style="color: #dc3545; font-weight: bold; margin-bottom: 10px;">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+
+            <form action="{% url 'login_mensualidad' %}" method="POST" style="margin-top: 20px; text-align: center;">
+                {% csrf_token %}
+                <input type="text" name="cedula" class="login-input" placeholder="Cédula de Identidad" required>
+                <input type="password" name="contrasena" class="login-input" placeholder="Contraseña" required>
+                
+                <button type="submit" class="btn-enter" style="width: 100%; border: none; cursor: pointer; margin-top: 10px;">
+                    Ingresar
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        window.addEventListener('load', function() {
+            const bgImageUrl = '{% static "img/fondo_ia.jpeg" %}'; 
+            const img = new Image();
+            img.src = bgImageUrl;
+            img.onload = function() { document.body.classList.add('loaded'); };
+            img.onerror = function() { 
+                console.warn("La imagen de fondo falló, pero cargando el sistema...");
+                document.body.classList.add('loaded'); 
+            };
+        });
+    </script>
+</body>
+</html>

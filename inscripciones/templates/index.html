@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido - Diplomado IA Generativa</title>
+    <link rel="stylesheet" href="{% static 'css/styles1.css' %}">
+    <style>
+        /* Estilo temporal para ocultar el contenido hasta que cargue la imagen */
+        .welcome-overlay { opacity: 0; transition: opacity 0.5s ease; }
+        .loaded .welcome-overlay { opacity: 1; }
+    </style>
+</head>
+<body class="bg-tech">
+    <div class="welcome-overlay">
+        <div class="welcome-card">
+            <div class="logos-welcome">
+                <img src="{% static 'img/universidad-de-carabobo-logo-png_seeklogo-535325.png' %}" alt="UC Logo">
+                <img src="{% static 'img/Zynaoxe.png' %}" alt="Zynapxe Logo">
+                <img src="{% static 'img/cenforpro.png' %}" alt="Cenforpro Logo">
+            </div>
+            <h1>Diplomado en IA Generativa</h1>
+            <h2>Estrategias, Implementación y Marco Legal</h2>
+            <a href="{% url 'registrar_alumno' %}" class="btn-enter">Iniciar Inscripción</a>
+        </div>
+    </div>
+    <script>
+        // Script para precargar la imagen de fondo
+        window.addEventListener('load', function() {
+            // 1. Usa el nuevo nombre SIN ESPACIOS
+            const bgImageUrl = '{% static "img/fondo_ia.jpeg" %}'; 
+            const img = new Image();
+            img.src = bgImageUrl;
+            
+            // 2. Si la imagen carga perfecto, mostramos todo
+            img.onload = function() {
+                document.body.classList.add('loaded');
+            };
+
+            // 3. EL SALVAVIDAS: Si la imagen da error (por ruta o internet lento), mostramos todo igual
+            img.onerror = function() {
+                console.warn("La imagen de fondo falló, pero cargando el sistema...");
+                document.body.classList.add('loaded');
+            };
+        });
+    </script>
+</body>
+</html>
